@@ -49,9 +49,14 @@ use "linal"
 use "utility"
 use "stringext"
 
+primitive LabaConst
+  let duration:F32 = 0.87
+  let delay:F32 = 0.27
+
 class LabaActionGroup
   let actions:Array[LabaAction]
-  let duration:F32 = 1.0
+  var duration:F32 = LabaConst.duration
+  var delay:F32 = 0.0
   
   new create() =>
     actions = Array[LabaAction](32)
@@ -61,6 +66,9 @@ class LabaActionGroup
     
   fun values():ArrayValues[LabaAction, this->Array[LabaAction]]^ =>
     actions.values()
+  
+  fun totalDuration():F32 =>
+    delay + duration
     
   fun ref commit(target:LabaTarget) =>
     for action in actions.values() do
@@ -68,11 +76,12 @@ class LabaActionGroup
     end
     
   fun ref update(target:LabaTarget, animationValue:F32):Bool =>
+    let normalizedValue = ( (animationValue - delay) / duration ).min(1.0).max(0.0)
     for action in actions.values() do
-      action.update(target, animationValue / duration)
+      action.update(target, normalizedValue)
     end
     target.syncToNode()
-    (animationValue >= duration)
+    (normalizedValue >= 1.0)
     
   fun ref toString(string:String ref) =>
     for action in actions.values() do
@@ -110,13 +119,11 @@ class LabaTarget
     if y_sync then target.top(_y); y_sync = false end
 
 
-
 class Laba
 """
   Parses a Laba animation string into groups of Laba actions and effectuates the
   actual animation process (an outside entity calls animate with timing deltas)
-"""
-  
+"""  
   let groups:Array[LabaActionGroup]
   let target:LabaTarget
   let animationString:String val
@@ -162,6 +169,9 @@ class Laba
         | '>' => action = LabaActionMoveX(c, target, parser, 1, inverted)
         | '^' => action = LabaActionMoveY(c, target, parser, -1, inverted)
         | 'v' => action = LabaActionMoveY(c, target, parser, 1, inverted)
+        
+        | 'd' => group.duration = try parser.f32()? else LabaConst.duration end
+        | '~' => group.delay = try parser.f32()? else LabaConst.delay end
       
         | '|' =>
           group.commit(target)
@@ -195,7 +205,7 @@ class Laba
       let group = groups(0)?
       
       if group.update(target, animationValue) then
-        animationValue = animationValue - group.duration
+        animationValue = animationValue - group.totalDuration()
         groups.delete(0)?
       end
       
