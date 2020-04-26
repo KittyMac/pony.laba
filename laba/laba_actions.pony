@@ -78,8 +78,13 @@ class LabaActionMoveX is LabaAction
     operator = operator'
     inverted = inverted'
     value = try parser.f32()? else 0.0 end
-    from = target.getX()
-    to = from + (mod * value)
+    if inverted then
+      to = target.getX()
+      from = to - (mod * value)
+    else
+      from = target.getX()
+      to = from + (mod * value)
+    end
     
   fun update(target:LabaTarget, animationValue:F32) =>
     target.setX( Easing.tweenQuadraticEaseOut(from,to,animationValue) )
@@ -94,8 +99,14 @@ class LabaActionMoveY is LabaAction
     operator = operator'
     inverted = inverted'
     value = try parser.f32()? else 0.0 end
-    from = target.getY()
-    to = from + (mod * value)
+    if inverted then
+      to = target.getY()
+      from = to - (mod * value)
+    else
+      from = target.getY()
+      to = from + (mod * value)
+    end
+    
     
   fun update(target:LabaTarget, animationValue:F32) =>
     target.setY( Easing.tweenQuadraticEaseOut(from,to,animationValue) )

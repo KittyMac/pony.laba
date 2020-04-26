@@ -56,6 +56,8 @@ class iso _TestLaba2 is UnitTest
   fun apply(h: TestHelper) =>
     h.long_test(30_000_000_000)
     
+    //"!>300!f"
+    
     let tests:Array[(F32,String,String)] = [
       (LabaConst.duration, "", """<div layout="width: 100; height: 100; top: 0; left: 0;" style="width: 100px; height: 100px; " ></div>""")
       (0.27+0.1+0.2+0.3, "~d0.1|d0.2|d0.3", """<div layout="width: 100; height: 100; top: 0; left: 0;" style="width: 100px; height: 100px; " ></div>""")
@@ -67,6 +69,10 @@ class iso _TestLaba2 is UnitTest
       (LabaConst.duration*1, ">100", """<div layout="width: 100; height: 100; top: 0; left: 100;" style="width: 100px; height: 100px; left: 100px; " ></div>""")
       (LabaConst.duration*1, "^100", """<div layout="width: 100; height: 100; top: -100; left: 0;" style="width: 100px; height: 100px; top: -100px; " ></div>""")
       (LabaConst.duration*1, "v100", """<div layout="width: 100; height: 100; top: 100; left: 0;" style="width: 100px; height: 100px; top: 100px; " ></div>""")
+      (LabaConst.duration*1, "!<100", """<div layout="width: 100; height: 100; top: 0; left: 0;" style="width: 100px; height: 100px; left: 0px; " ></div>""")
+      (LabaConst.duration*1, "!>100", """<div layout="width: 100; height: 100; top: 0; left: 0;" style="width: 100px; height: 100px; left: 0px; " ></div>""")
+      (LabaConst.duration*1, "!^100", """<div layout="width: 100; height: 100; top: 0; left: 0;" style="width: 100px; height: 100px; top: 0px; " ></div>""")
+      (LabaConst.duration*1, "!v100", """<div layout="width: 100; height: 100; top: 0; left: 0;" style="width: 100px; height: 100px; top: 0px; " ></div>""")
       (LabaConst.duration*1, "<100^100", """<div layout="width: 100; height: 100; top: -100; left: -100;" style="width: 100px; height: 100px; left: -100px; top: -100px; " ></div>""")
       (LabaConst.duration*4, "<100|>100|^50|v50", """<div layout="width: 100; height: 100; top: 0; left: 0;" style="width: 100px; height: 100px; left: 0px; top: 0px; " ></div>""")
     ]
@@ -85,7 +91,7 @@ class iso _TestLaba2 is UnitTest
     h.complete(true)
 
 class iso _TestLaba3 is UnitTest
-  fun name(): String => "Test 2: staggered duration"
+  fun name(): String => "Test 3: staggered duration"
 
   fun apply(h: TestHelper) =>
     h.long_test(30_000_000_000)
