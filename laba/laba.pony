@@ -2,6 +2,7 @@
  * Each command can optionally be followed by a single numerical value, which makes sense only in the context of the command. For example,
  * "<120" would mean animate left 120 units.
  *
+ *
  * ~ delay
  *
  * w width
@@ -104,6 +105,9 @@ class LabaTarget
   new create(target':YogaNode) =>
     target = target'
   
+  fun ref getSiblingIdx():USize => 
+    target.sibling_index
+  
   fun ref getX():F32 => _x
   fun ref setX(x:F32) => _x = x; x_sync = true
   
@@ -170,6 +174,7 @@ class Laba
         | '^' => action = LabaActionMoveY(c, target, parser, -1, inverted)
         | 'v' => action = LabaActionMoveY(c, target, parser, 1, inverted)
         
+        | 'D' => group.duration = (try parser.f32()? else LabaConst.duration end) * target.getSiblingIdx().f32()
         | 'd' => group.duration = try parser.f32()? else LabaConst.duration end
         | '~' => group.delay = try parser.f32()? else LabaConst.delay end
       

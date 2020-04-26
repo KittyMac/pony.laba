@@ -4,7 +4,7 @@
 
 ### Purpose
 
-A port of [Laba](https://github.com/KittyMac/Laba) to Pony, specifically for use of [pony.ui](https://github.com/KittyMac/pony.ui) and [Pony Express](https://github.com/KittyMac/PonyExpress)
+A port of [Laba](https://github.com/KittyMac/Laba) to Pony, specifically for use with [pony.ui](https://github.com/KittyMac/pony.ui) and [Pony Express](https://github.com/KittyMac/PonyExpress)
 
 
 ## License
