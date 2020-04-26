@@ -14,6 +14,7 @@ actor Main is TestList
 		test(_TestLaba1)
     test(_TestLaba2)
     test(_TestLaba3)
+    test(_TestLaba4)
 
 
 primitive LabaTestShared
@@ -115,4 +116,20 @@ class iso _TestLaba3 is UnitTest
 
     h.complete(true)
     
-    
+class iso _TestLaba4 is UnitTest
+  fun name(): String => "Test 4: parameters"
+
+  fun apply(h: TestHelper) =>
+    h.long_test(30_000_000_000)
+
+    let compare = """<div layout="width: 100; height: 100; top: 0; left: -999;" style="width: 100px; height: 100px; left: -999px; " ></div>"""
+
+    let node = YogaNode.>laba("d?<?", 5.0, 999.0).>size(100,100)
+
+    let t = LabaTestShared.advanceLabaAnimationOnNode(node)
+    if LabaTestShared.compareResults(0, node.string(), compare, 5.0, t) == false then
+      h.complete(false)
+      return
+    end
+
+    h.complete(true)
