@@ -1,0 +1,16 @@
+{
+  "locks": [
+    {
+      "locator": "/Volumes/Development/Development/pony/pony.easings"
+    },
+    {
+      "locator": "/Volumes/Development/Development/pony/ponylang-linal"
+    },
+    {
+      "locator": "/Volumes/Development/Development/pony/pony.ui"
+    },
+    {
+      "locator": "/Volumes/Development/Development/pony/pony.utility"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+build/*
+TAGS
+tags
+.deps/*
+libapple/build/
+*.tar.gz
+_corral
+_repos
