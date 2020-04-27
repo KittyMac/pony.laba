@@ -88,7 +88,7 @@ class LabaActionMoveX is LabaAction
     
   fun update(target:LabaTarget, animationValue:F32) =>
     target.setX( Easing.tweenQuadraticEaseOut(from,to,animationValue) )
-    //Log.println("%s: %s,%s,%s", target.getX(), from, to, animationValue)
+    //Log.println("%s: from %s,  to %s,  v %s", target.getX(), from, to, animationValue)
 
 class LabaActionMoveY is LabaAction
 """
@@ -110,4 +110,4 @@ class LabaActionMoveY is LabaAction
     
   fun update(target:LabaTarget, animationValue:F32) =>
     target.setY( Easing.tweenQuadraticEaseOut(from,to,animationValue) )
-    //Log.println("%s: %s,%s,%s", target.getY(), from, to, animationValue)
+    //Log.println("%s: from %s,  to %s,  v %s", target.getY(), from, to, animationValue)

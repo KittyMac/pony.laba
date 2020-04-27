@@ -250,6 +250,8 @@ class Laba
       end
     end
     
+    target.syncFromNode()
+    
     //print()
   
   fun ref animate(delta:F32 val):Bool =>
